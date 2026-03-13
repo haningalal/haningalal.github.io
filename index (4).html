@@ -208,12 +208,32 @@
         font-size: 0.9rem;
       }
 
-      /* ================= ACTIVITY ================= */
+      /* ================= ACTIVITY / EDUCATION CARDS ================= */
       .activity-content {
         display: grid;
         grid-template-columns: 1fr 2fr;
         gap: 30px;
         align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .activity-img {
+        width: 100%;
+        max-height: 220px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px var(--shadow);
+      }
+
+      /* Specific style for logos inside Experience cards */
+      .exp-logo {
+        max-width: 180px;
+        max-height: 80px;
+        object-fit: contain;
+        margin: 10px 0;
+        border-radius: 8px;
+        background: #fff; /* Good for logos with transparent backgrounds */
+        padding: 5px;
       }
 
       @media (max-width: 768px) {
@@ -224,12 +244,6 @@
           margin: 0 8px;
           font-size: 0.8rem;
         }
-      }
-
-      .activity-img {
-        width: 100%;
-        border-radius: 15px;
-        box-shadow: 0 10px 20px var(--shadow);
       }
 
       /* ================= THEME TOGGLE ================= */
@@ -261,10 +275,13 @@
   <body>
     <nav>
       <a href="#summary">About</a>
+      <a href="#education">Education</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
-      <a href="#activity">Activity</a>
+      <a href="#services">Services</a>
+      <a href="#activity">Activities</a>
+      <a href="#certificates">Certificates</a>
     </nav>
 
     <button
@@ -318,27 +335,37 @@
         <p>
           Computer Science student at Alexandria University and trainee at the
           <strong>Digital Egypt Pioneers Initiative (DEPI)</strong>,
-          specializing in Data Engineering and AI. From my roots at STEM High
-          School, I’ve developed a passion for building efficient data pipelines
-          and solving complex problems with code.
+          specializing in Data Engineering and AI. I’ve developed a passion for
+          building efficient data pipelines and solving complex problems with
+          code.
         </p>
       </section>
 
       <section id="education">
-        <h2>Education</h2>
-        <div class="exp-card">
-          <div class="exp-header">
+        <h2>Education & Programs</h2>
+
+        <div class="activity-content">
+          <img src="fcds.jpeg" alt="FCDS" class="activity-img" />
+          <div>
             <h3>Bachelor of Computer & Data Science</h3>
             <span>2024 — 2028</span>
+            <p>
+              Alexandria University, FCDS. Focused on Data Engineering, AI
+              fundamentals, and building efficient data pipelines.
+            </p>
           </div>
-          <p>Alexandria University</p>
         </div>
-        <div class="exp-card">
-          <div class="exp-header">
-            <h3>STEM High School for Girls</h3>
+
+        <div class="activity-content">
+          <img src="stem.jpeg" alt="STEM High School" class="activity-img" />
+          <div>
+            <h3>STEM High School</h3>
             <span>2022 — 2024</span>
+            <p>
+              Developed foundational skills in science, technology, engineering,
+              and math. Built problem-solving mindset and coding basics.
+            </p>
           </div>
-          <p>Alexandria, Egypt</p>
         </div>
       </section>
 
@@ -348,7 +375,7 @@
         <div class="exp-card">
           <div class="exp-header">
             <h3>Microsoft Data Engineer & AI Intern</h3>
-            <span>2024 — Present</span>
+            <span>Nov. 2025 – Present</span>
           </div>
           <p><strong>DEPI (Digital Egypt Pioneers Initiative)</strong></p>
           <ul style="margin-left: 20px; margin-top: 10px">
@@ -363,9 +390,10 @@
         <div class="exp-card">
           <div class="exp-header">
             <h3>Web Development Trainee</h3>
-            <span>2024</span>
+            <span>Jul. 2025 – Aug. 2025</span>
           </div>
           <p><strong>SAIT</strong></p>
+          <img src="sait.png" alt="SAIT Logo" class="exp-logo" />
           <ul style="margin-left: 20px; margin-top: 10px">
             <li>
               Mastered Front-end responsive design and Back-end connectivity.
@@ -420,6 +448,32 @@
         </div>
       </section>
 
+      <section id="services">
+        <h2>Offer Services</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <h3>Data Pipeline Development</h3>
+            <p>
+              Design and implement efficient data pipelines using Python and
+              SQL.
+            </p>
+          </div>
+          <div class="project-card">
+            <h3>Web Development</h3>
+            <p>
+              Build responsive full-stack websites using modern HTML, CSS, and
+              JS frameworks.
+            </p>
+          </div>
+          <div class="project-card">
+            <h3>Data Analysis</h3>
+            <p>
+              Analyze data to generate insights and create clear, interactive
+              visualizations.
+            </p>
+        </div>
+      </section>
+
       <section id="activity">
         <h2>Extra Activities</h2>
         <div class="activity-content">
@@ -428,8 +482,7 @@
             <h3>Organizing Committee (OC) @ OVD</h3>
             <p>
               Official Volunteers of the Directorate of Youth and Sports. I
-              manage event logistics, team coordination, and public relations
-              for regional youth initiatives.
+              manage event logistics and team coordination.
             </p>
           </div>
         </div>
@@ -438,7 +491,7 @@
       <section id="certificates">
         <h2>Certificates</h2>
         <ul>
-          <li><strong>HackerRank:</strong> SQL basics Certification</li>
+          <li><strong>HackerRank:</strong> SQL Intermediate Certification</li>
           <li>
             <strong>HP Life:</strong> Data Science & Analytics Fundamentals
           </li>
@@ -451,33 +504,27 @@
     </footer>
 
     <script>
-      // Theme Toggle Logic
       function toggleTheme() {
         document.body.classList.toggle("light-mode");
         const isLight = document.body.classList.contains("light-mode");
         localStorage.setItem("theme", isLight ? "light" : "dark");
       }
 
-      // Scroll Animation Observer
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-            }
+            if (entry.isIntersecting) entry.target.classList.add("visible");
           });
         },
         { threshold: 0.15 }
       );
 
-      document.querySelectorAll("section").forEach((section) => {
-        observer.observe(section);
-      });
+      document
+        .querySelectorAll("section")
+        .forEach((section) => observer.observe(section));
 
-      // Load Saved Theme
-      if (localStorage.getItem("theme") === "light") {
+      if (localStorage.getItem("theme") === "light")
         document.body.classList.add("light-mode");
-      }
     </script>
   </body>
 </html>
