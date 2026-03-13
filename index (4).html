@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hanin Ahmed Galal | Portfolio</title>
+
+    <style>
+      /* ================= GLOBAL & THEMES ================= */
+      :root {
+        --bg-color: #0a0a0a;
+        --text-color: #dcd6f7;
+        --accent-color: #9b59b6;
+        --nav-bg: rgba(10, 10, 10, 0.95);
+        --card-bg: #1a1a1a;
+        --shadow: rgba(155, 89, 182, 0.3);
+        --border-color: #9b59b6;
+      }
+
+      body.light-mode {
+        --bg-color: #f4f4f9;
+        --text-color: #1a1a1a;
+        --accent-color: #7d3c98;
+        --nav-bg: rgba(255, 255, 255, 0.95);
+        --card-bg: #ffffff;
+        --shadow: rgba(0, 0, 0, 0.1);
+        --border-color: #7d3c98;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        background: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.7;
+        font-size: 18px;
+        scroll-behavior: smooth;
+        transition: background 0.4s, color 0.4s;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--accent-color);
+        transition: 0.3s;
+        font-weight: 600;
+      }
+
+      a:hover {
+        opacity: 0.8;
+      }
+
+      /* ================= NAVIGATION ================= */
+      nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: var(--nav-bg);
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      }
+
+      nav a {
+        margin: 0 15px;
+        font-size: 0.95rem;
+        color: var(--text-color);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      nav a.active {
+        color: var(--accent-color);
+        border-bottom: 2px solid var(--accent-color);
+      }
+
+      /* ================= LAYOUT ================= */
+      .container {
+        max-width: 1000px;
+        margin: auto;
+        padding: 140px 25px 60px;
+      }
+
+      section {
+        margin-bottom: 100px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+
+      section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        color: var(--accent-color);
+        margin-bottom: 30px;
+        display: inline-block;
+        position: relative;
+      }
+
+      h2::after {
+        content: "";
+        display: block;
+        width: 50%;
+        height: 4px;
+        background: var(--accent-color);
+        margin-top: 5px;
+        border-radius: 2px;
+      }
+
+      /* ================= HEADER ================= */
+      header {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+
+      .profile-pic {
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid var(--accent-color);
+        margin-bottom: 25px;
+        box-shadow: 0 0 30px var(--shadow);
+        animation: float 5s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      header h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        margin-bottom: 10px;
+        background: linear-gradient(-45deg, #9b59b6, #dcb3ff, #8e44ad);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+        font-size: 0.95rem;
+      }
+
+      /* ================= EXPERIENCE & PROJECTS ================= */
+      .exp-card,
+      .project-card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 20px var(--shadow);
+        border-left: 5px solid var(--accent-color);
+        transition: transform 0.3s;
+      }
+
+      .exp-card:hover,
+      .project-card:hover {
+        transform: scale(1.02);
+      }
+
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+      }
+
+      /* ================= SKILLS ================= */
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .skill-tag {
+        background: var(--accent-color);
+        color: white;
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      /* ================= ACTIVITY ================= */
+      .activity-content {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 30px;
+        align-items: center;
+      }
+
+      @media (max-width: 768px) {
+        .activity-content {
+          grid-template-columns: 1fr;
+        }
+        nav a {
+          margin: 0 8px;
+          font-size: 0.8rem;
+        }
+      }
+
+      .activity-img {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px var(--shadow);
+      }
+
+      /* ================= THEME TOGGLE ================= */
+      .mode-toggle {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        z-index: 2000;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px;
+        font-size: 0.9rem;
+        border-top: 1px solid var(--shadow);
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <a href="#summary">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#activity">Activity</a>
+    </nav>
+
+    <button
+      class="mode-toggle"
+      onclick="toggleTheme()"
+      title="Toggle Dark/Light Mode"
+    >
+      🌓
+    </button>
+
+    <div class="container">
+      <header>
+        <img src="profile.jpeg" class="profile-pic" alt="Hanin Ahmed Galal" />
+        <h1>Hanin Ahmed Galal</h1>
+        <p
+          style="
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            font-weight: 500;
+          "
+        >
+          Computer Science Student | Data Engineering Enthusiast
+        </p>
+        <div class="contact-info">
+          <span>📞 +20 155 475 5299</span>
+          <span
+            >✉️
+            <a href="mailto:haningalall54@gmail.com"
+              >haningalall54@gmail.com</a
+            ></span
+          >
+          <span
+            >💼
+            <a
+              href="https://www.linkedin.com/in/hanin-ahmed-420a04337/"
+              target="_blank"
+              >LinkedIn</a
+            ></span
+          >
+          <span
+            >🐱
+            <a href="https://github.com/haningalal" target="_blank"
+              >GitHub</a
+            ></span
+          >
+        </div>
+      </header>
+
+      <section id="summary">
+        <h2>Summary</h2>
+        <p>
+          Computer Science student at Alexandria University and trainee at the
+          <strong>Digital Egypt Pioneers Initiative (DEPI)</strong>,
+          specializing in Data Engineering and AI. From my roots at STEM High
+          School, I’ve developed a passion for building efficient data pipelines
+          and solving complex problems with code.
+        </p>
+      </section>
+
+      <section id="education">
+        <h2>Education</h2>
+        <div class="exp-card">
+          <div class="exp-header">
+            <h3>Bachelor of Computer & Data Science</h3>
+            <span>2024 — 2028</span>
+          </div>
+          <p>Alexandria University</p>
+        </div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <h3>STEM High School for Girls</h3>
+            <span>2022 — 2024</span>
+          </div>
+          <p>Alexandria, Egypt</p>
+        </div>
+      </section>
+
+      <section id="experience">
+        <h2>Experience & Internships</h2>
+
+        <div class="exp-card">
+          <div class="exp-header">
+            <h3>Microsoft Data Engineer & AI Intern</h3>
+            <span>2024 — Present</span>
+          </div>
+          <p><strong>DEPI (Digital Egypt Pioneers Initiative)</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px">
+            <li>
+              Hands-on training with SQL, Python, and data pipeline
+              orchestration.
+            </li>
+            <li>Exploring Azure AI fundamentals and cloud data management.</li>
+          </ul>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-header">
+            <h3>Web Development Trainee</h3>
+            <span>2024</span>
+          </div>
+          <p><strong>SAIT</strong></p>
+          <ul style="margin-left: 20px; margin-top: 10px">
+            <li>
+              Mastered Front-end responsive design and Back-end connectivity.
+            </li>
+            <li>Collaborated on building full-stack web components.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+          <div class="project-card">
+            <h3>Flood Fill Game | Python</h3>
+            <p>
+              A logic-based grid game implementing optimized recursive
+              algorithms for area filling.
+            </p>
+          </div>
+          <div class="project-card">
+            <h3>Flight Booking | Java</h3>
+            <p>
+              A full OOP system for seat reservation, flight scheduling, and
+              user management.
+            </p>
+          </div>
+          <div class="project-card">
+            <h3>
+              <a href="https://haningalal.github.io/cozyhood/" target="_blank"
+                >Cozyhood Brand Website ↗</a
+              >
+            </h3>
+            <p>
+              A modern e-commerce storefront with dynamic cart features and
+              responsive styling.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Data Structures</span>
+          <span class="skill-tag">Problem Solving</span>
+          <span class="skill-tag">Azure Basics</span>
+        </div>
+      </section>
+
+      <section id="activity">
+        <h2>Extra Activities</h2>
+        <div class="activity-content">
+          <img src="ovd.jpeg" alt="OVD Activity" class="activity-img" />
+          <div>
+            <h3>Organizing Committee (OC) @ OVD</h3>
+            <p>
+              Official Volunteers of the Directorate of Youth and Sports. I
+              manage event logistics, team coordination, and public relations
+              for regional youth initiatives.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="certificates">
+        <h2>Certificates</h2>
+        <ul>
+          <li><strong>HackerRank:</strong> SQL Intermediate Certification</li>
+          <li>
+            <strong>HP Life:</strong> Data Science & Analytics Fundamentals
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 Hanin Ahmed Galal. Hand-coded with passion.</p>
+    </footer>
+
+    <script>
+      // Theme Toggle Logic
+      function toggleTheme() {
+        document.body.classList.toggle("light-mode");
+        const isLight = document.body.classList.contains("light-mode");
+        localStorage.setItem("theme", isLight ? "light" : "dark");
+      }
+
+      // Scroll Animation Observer
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll("section").forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Load Saved Theme
+      if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light-mode");
+      }
+    </script>
+  </body>
+</html>
